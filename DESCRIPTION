@@ -1,0 +1,15 @@
+Package: KEGGSOAP
+Version: 1.34.0
+Title: Client-side SOAP access KEGG
+Author: J. Zhang and R. Gentleman
+Depends: methods, BiocGenerics
+Imports: XML, RCurl, SSOAP (>= 0.2-2), XMLSchema
+Suggests: RUnit
+LazyLoad: yes
+Maintainer: Bioconductor Package Maintainer
+        <maintainer@bioconductor.org>
+Description: A package that provides a client interface to the KEGG
+        SOAP server
+biocViews: Annotation, Pathways, ConnectTools
+License: BSD
+Packaged: 2013-04-04 06:45:25 UTC; biocbuild

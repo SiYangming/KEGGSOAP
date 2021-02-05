@@ -1,0 +1,66 @@
+Jianhua,
+  I think that we need to try and sort out what is/ and is not available
+through KEGG. I have started to write the package, but I would like you to
+do a lot of the basic implementation and documentation.
+  Most of the types etc are available from the KEGG web page and we do need 
+a workable version of this by the end of the first week in August as I would
+like to have some of it in the book.
+
+  As near as I can tell we are going to need some sort of listing of the 
+three letter species abbreviations that they are using - so that one
+can request pathway data for a specific species. And I am not sure how that 
+impacts on the data in KEGG - because somehow I think what we have there
+now is not right.
+
+The environments: KEGGPATHID2EXTID and KEGGEXTID2PATHID cannot be right,
+ and I am guessing that we need to leave those to some sort of organism 
+specific data base or to the KEGGSOAP package.
+
+
+For example: most of the get_xxx functions will return objects with these
+slots. I don't think we need an S4 class but we should document what 
+will happen.
+
+RETURN TYPES:
+
+genes_id1         genes_id of the query (string)
+genes_id2         genes_id of the target (string)
+sw_score          Smith-Waterman score between genes_id1 and genes_id2 (int)
+bit_score         bit score between genes_id1 and genes_id2 (float)
+identity          identity between genes_id1 and genes_id2 (float)
+overlap           overlap length between genes_id1 and genes_id2 (int)
+start_position1   start position of the alignment in genes_id1 (int)
+end_position1     end position of the alignment in genes_id1 (int)
+start_position2   start position of the alignment in genes_id2 (int)
+end_position2     end position of the alignment in genes_id2 (int)
+best_flag_1to2    best-best flag from genes_id1 to genes_id2 (boolean)
+best_flag_2to1    best-best flag from genes_id2 to genes_id1 (boolean)
+definition1       definition string of the genes_id1 (string)
+definition2       definition string of the genes_id2 (string)
+length1           amino acid length of the genes_id1 (int)
+length2           amino acid length of the genes_id2 (int)
+
+Also, I found a lot of examples at:
+http://cvs.bioperl.org/cgi-bin/viewcvs/viewcvs.cgi/bioruby/lib/bio/io/keggapi.rb?cvsroot=bioruby&rev=1.5
+(just search on something like get_motifs_by_gene at Google and this comes
+up. It seems to have some sensible values.
+
+Here are some examples that I have got to go, together with my simple 
+package example. Which is on rna in
+~rgentlem/Rpacks/KEGGSOAP
+and the SSOAP that I have done some surgery on is there as well.
+
+
+g1 = get_best_neighbors_by_gene("eco:b0002",1, 5)
+
+sapply(g1, function(x) x$genes_id2)
+
+g2 = get_genes_by_pathway("path:hsa00020")
+
+g3 = get_genes_by_pathway("path:eco00020")
+
+g4 = get_genes_by_pathway("path:ddi00020")
+
+dbs = list_databases()
+
+xx=get_motifs_by_gene("eco:b0002", "pfam")
